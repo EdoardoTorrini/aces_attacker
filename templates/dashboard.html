@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monitor Telemetria V2X</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+          integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+          crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+          integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+          crossorigin=""></script>
+    
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    
+</head>
+<body class="bg-gray-900 text-gray-100 min-h-screen">
+    <div class="container mx-auto p-4 max-w-7xl">
+        <h1 class="text-3xl font-bold mb-4 text-center text-blue-400">
+            Dashboard Telemetria V2X
+        </h1>
+
+        <div class="flex flex-col md:flex-row gap-4">
+            
+            <div class="w-full md:w-1/3 flex flex-col gap-4">
+                
+                <div class="bg-gray-800 p-4 rounded-lg shadow-lg">
+                    <h2 class="text-xl font-bold mb-3 text-blue-300 border-b border-gray-700 pb-2">Info Veicolo (OBU)</h2>
+                    <div class="space-y-2 text-lg">
+                        <p><strong>Velocità:</strong> <span id="speed-data" class="font-mono text-yellow-400">N/A</span></p>
+                        <p><strong>Latitudine:</strong> <span id="lat-data" class="font-mono text-yellow-400">N/A</span></p>
+                        <p><strong>Longitudine:</strong> <span id="lon-data" class="font-mono text-yellow-400">N/A</span></p>
+			<p><strong>Heading:</strong> <span id="heading-data" class="font-mono text-yellow-400">N/A</span></p>
+                    </div>
+                </div>
+
+                <div class="bg-gray-800 p-4 rounded-lg shadow-lg">
+                    <h2 class="text-xl font-bold mb-3 text-blue-300 border-b border-gray-700 pb-2">Stato RSU (DENM)</h2>
+                    
+                    <div class="flex justify-center items-center bg-gray-900 p-4 rounded-lg">
+                        <div class="flex flex-col p-2 bg-black rounded-lg border-2 border-gray-700">
+                            <div id="light-red" class="w-16 h-16 rounded-full border-2 border-gray-700 m-2 bg-gray-700 transition-all duration-300"></div>
+                            <div id="light-yellow" class="w-16 h-16 rounded-full border-2 border-gray-700 m-2 bg-gray-700 transition-all duration-300"></div>
+                            <div id="light-green" class="w-16 h-16 rounded-full border-2 border-gray-700 m-2 bg-gray-700 transition-all duration-300"></div>
+                        </div>
+                    </div>
+                </div>
+
+		<div class="bg-gray-800 p-4 rounded-lg shadow-lg">
+
+			<h2 class="text-xl font-bold mb-3 text-blue-300 border-b border-gray-700 pb-2 w-full">
+			    Simula Attacco
+			</h2>
+
+			<div class="flex flex-col gap-4 w-full">
+			    <div class="relative">
+				<select id="attack_type" class="w-full bg-gray-900 text-gray-300 border border-gray-700 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 outline-none transition-colors">
+				    <option selected disabled>Seleziona un attacco...</option>
+				    <option value="0">Continue with Red Semaphore</option>
+				    <option value="1">Stop on Green Semaphore</option>
+				    <option value="2">Random Stop</option>
+				</select>
+			    </div>
+
+			    <button onclick="startAttack()" class="w-full text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-900 font-bold rounded-lg text-sm px-5 py-2.5 text-center transition-all duration-200 shadow-md">
+				Attiva
+			    </button>
+
+			</div>
+	    	</div>
+
+            </div>
+
+            <div class="w-full md:w-2/3">
+                <div id="map" class="w-full h-[80vh] bg-gray-700 rounded-lg shadow-lg overflow-hidden">
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/app.js') }}" defer></script>
+    
+</body>
+</html>

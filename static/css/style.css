@@ -1,0 +1,23 @@
+body { 
+    font-family: 'Inter', sans-serif; 
+}
+.log-entry {
+    border-bottom: 1px solid #374151; /* gray-700 */
+    padding: 12px 8px;
+    font-family: monospace;
+    font-size: 0.875rem;
+    transition: background-color 0.3s ease;
+}
+.log-entry:hover {
+    background-color: #374151; /* gray-700 */
+}
+/* Stile per il contenitore della mappa */
+#map {
+    height: 60vh; /* Altezza default per mobile */
+    z-index: 0; /* Assicura che la mappa sia dietro i controlli se necessario */
+}
+@media (min-width: 1024px) { /* lg breakpoint */
+    #map, #telemetry-log-container {
+        height: 85vh; /* Altezza maggiore per desktop */
+    }
+}
