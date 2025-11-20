@@ -45,6 +45,9 @@ class Config:
         return dict(self).get(key, None) 
 
 
+conf = Config("./app.yaml")
+
+
 class AttackID(Enum):
     NOT_ATTACK      = -1
     ATTACK_SEM      = 0
@@ -70,24 +73,24 @@ def polling():
             match mID:
                 case V2xTMsg.DENM:
                     msg = DENM(pkt=pkt)
-                    if msg.stationID != 12131: continue
+                    if msg.stationID != conf.get("attack.station_id"): continue
                     if q_denm.full():
                         q_denm.get_nowait()
                     q_denm.put(msg)
                 case V2xTMsg.CAM:
                     msg = CAM(pkt=pkt)
-                    if msg.stationID != 4316: continue
+                    if msg.stationID != conf.get("attak.vehicles_id"): continue
                     if q_cam.full():
                         q_cam.get_nowait()
                     q_cam.put(msg)
         time.sleep(0.05)
 
-def gen_attack_denm(sub_code: int, lat = 446529860, lon = 109299810) -> "DENM":
+def gen_attack_denm(sub_code: int, lat = conf.get("attack.station_lat"), lon = conf.get("attack.station_lon")) -> "DENM":
     return DENM( 
         protocolVersion=2, 
         messageID=1, 
-        stationID=12130, 
-        originatingStationID=12131, 
+        stationID=conf.get("general.station_id"), 
+        originatingStationID=conf.get("attack.station_id"), 
         sequenceNumber=1, 
         detectionTime=100000000, 
         referenceTime=0, 
@@ -113,8 +116,6 @@ def perform_attack(net, msg):
 
 app = Flask(__name__)
 CORS(app)
-
-conf = Config("./app.yaml")
 
 CAM = V2xAsnP().new("CAM", conf.get("asn.cpath")).create_class()
 DENM = V2xAsnP().new("DENM", conf.get("asn.dpath")).create_class()

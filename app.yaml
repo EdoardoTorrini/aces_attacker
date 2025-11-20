@@ -1,6 +1,10 @@
 
 general:
+  # interface where modulus have to attack to communicate via v2x
   iface: "hwsim0"
+
+  # station id of the attacker
+  station_id: 12130
 
 asn:
   cpath: ["./asn/cam/CAM-PDU-Descriptions.asn", "./asn/cam/cdd/ITS-Container.asn"]
@@ -8,3 +12,12 @@ asn:
 
 denm:
   fpSubCauseCode: "denm.situation.eventType.subCauseCode"
+
+attack:
+  # vehicle id to attack
+  vehicles_id: 4316
+
+  # station id that the attacker have to personify
+  station_id: 12131
+  station_lat: 446529860
+  station_lon: 109299810
