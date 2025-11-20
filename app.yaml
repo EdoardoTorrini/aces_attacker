@@ -1,0 +1,10 @@
+
+general:
+  iface: "hwsim0"
+
+asn:
+  cpath: ["./asn/cam/CAM-PDU-Descriptions.asn", "./asn/cam/cdd/ITS-Container.asn"]
+  dpath: ["./asn/denm/DENM-PDU-Descriptions.asn", "./asn/denm/cdd/ITS-Container.asn"]
+
+denm:
+  fpSubCauseCode: "denm.situation.eventType.subCauseCode"
